@@ -69,9 +69,13 @@ app.put('/products/:id', function(req, res) {
    var replacedprod = _.find(products, function(n) {
 	  return n.id === theId;
 	});
-   var index = products.indexOf(replacedprod);
 
-   products.splice(index, 1,theNewProduct);
+   for( k in theNewProduct) {
+      replacedprod[k] = theNewProduct[k];
+   }
+   // var index = products.indexOf(replacedprod);
+
+   // products.splice(index, 1,theNewProduct);
    console.log(products);
    res.end();
 });
