@@ -52,6 +52,7 @@ var products = [
 
 //listning av alla produkter
 app.get('/products', function(req, res) {
+  console.log(products);
 	if(req.query.limit >= 0) {
     res.json(products.slice(0, req.query.limit));
   }else {
@@ -61,19 +62,31 @@ app.get('/products', function(req, res) {
   } 
 });
 
-//hämta produkt 
+//hämta en produkt 
 app.get('/products/:id', function(req, res) {
     var theId = req.params.id;
-    var prod = _.find(products, function(p) {
-        return p.id === theId;
+    var id = products[theId].id;
+    var name = products[theId].name;
+    var priceIncVat = products[theId].priceIncVat;
+    var vatPercentage = products[theId].vatPercentage;
+    var vatAmount = products[theId].vatAmount;
+    var quantity = products[theId].quantity;
+    var priceIncVatAmount = products[theId].priceIncVatAmount;
+    var prod = [];
+    prod.push({
+      "id":id,
+      "name":name,
+      "priceIncVat":priceIncVat,
+      "vatPercentage":vatPercentage,
+      "vatAmount":vatAmount,
+      "quantity":quantity,
+      "priceIncVatAmount":priceIncVatAmount
     });
     if (prod) {
         res.json(prod);
-        console.log("The product is",prod);
     } else {
         res.status(404);
     }
-    console.log("You requested a product with id " + theId);
 });
 
 //skapa produkt(s)
@@ -82,9 +95,11 @@ app.post('/products', function (req, res) {
   if (_.isArray(product)) {
   	for (var i = 0; i < product.length; i++) {
   		products.push(product[i]);
+      res.status(201).json(products);
   	};
   }else {
     products.push(product);
+    res.status(201).json(products);
   }
   console.log("Saving product: " + product.name);
   res.end();
@@ -93,15 +108,12 @@ app.post('/products', function (req, res) {
 //ta bort produkt
 app.delete('/products/:id', function(req, res) {
     var theId = req.params.id;
-    var deletedprod = _.remove(products, function(n) {
-        return n.id === theId;
-    });
-   if (deletedprod) {
-        res.json(deletedprod);
-        console.log("deleted", deletedprod.name);
-   } else {
-        res.status(404);
-   }
+    if (!products[theId]) {
+      response.sendStatus(404);
+    }else{
+      delete products[theId];
+      res.sendStatus(200);
+    }
    console.log(products);
 });
 
@@ -110,23 +122,14 @@ app.put('/products/:id', function(req, res) {
     var theId = req.params.id;
     var theNewProduct = req.body;
     console.log(req.query);
-   
-    var replacedprod = _.find(products, function(n) {
-        return n.id === theId;
-    });
-
-    if(theNewProduct.id === replacedprod.id) {
-        //Method 1
-        // var index = products.indexOf(replacedprod);
-        // products.splice(index, 1, theNewProduct);
-        // 
-        //Method 2
-        // for( k in theNewProduct) {
-        //    replacedprod[k] = theNewProduct[k];
-        // }
-        // Method 3
-        var deletedprod = _.remove(products, function(n) {return n.id === theId;});
-        products.push(theNewProduct);
+    if(theId < products.length){
+      if(theNewProduct.id === products[theId].id) {
+          products.splice(theId, 1, theNewProduct);
+          
+      }else{
+        console.log(404);
+          // res.status(404).send({"message":"Can not find the product"});
+      }
     }
     else{
         console.log(404);

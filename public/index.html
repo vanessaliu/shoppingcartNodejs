@@ -9,12 +9,33 @@
 
   <body>
 	<h1>Shopping</h1>
-  <form action="">
-    <legend>New product</legend>
+  <form id="create" action="">
+    <h2>New product</h2>
+    <input type="text" name="id" placeholder="id"><br/>
     <input type="text" name="name" placeholder="name"><br/>
-    <input type="text" name="description" placeholder="description"><br/>
-    <input type="submit">
+    <input type="text" name="priceIncVat" placeholder="priceIncVat"><br/>
+    <input type="text" name="vatPercentage" placeholder="vatPercentage"><br/>
+    <input type="text" name="vatAmount" placeholder="vatAmount"><br/>
+    <input type="number" min="1" name="quantity" placeholder="quantity"><br/>
+    <input type="text" min="1" name="priceIncVatAmount" placeholder="priceIncVatAmount"><br/>
+    <input type="submit" value="add a new product">
   </form>
+  <hr>
+  
+    <h2>Update an existing product</h2>
+    <input id="productIndexId" type="number" min="0" name="productIndexId" placeholder="productIndexId"><br/>
+  <form id="update" action="">
+    <input type="text" name="id" placeholder="id"><br/>
+    <input type="text" name="name" placeholder="name"><br/>
+    <input type="text" name="priceIncVat" placeholder="priceIncVat"><br/>
+    <input type="text" name="vatPercentage" placeholder="vatPercentage"><br/>
+    <input type="text" name="vatAmount" placeholder="vatAmount"><br/>
+    <input type="number" min="1" name="quantity" placeholder="quantity"><br/>
+    <input type="text" min="1" name="priceIncVatAmount" placeholder="priceIncVatAmount"><br/>
+    <input type="submit" value="update the product">
+  </form>
+  <hr>
+  <h2>Product list</h2>
 	<ul class="product-list"></ul>
 
 

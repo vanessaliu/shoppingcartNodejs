@@ -5,12 +5,12 @@
 		var content, product;
 		for (var i in products) {
 			product =  products[i];
-			content = '<a href="/products/'+ product +'">'+product+ '</a>' + '<a href="#" data-product="' + product + '"><img src="editing-delete-icon.png" style="width:15px"></a>';
+			content = '<a href="/products/'+ product +'">Product'+product+ '</a>' + '<a href="#" data-product="' + product + '"><img src="editing-delete-icon.png" style="width:15px"></a>';
 			list.push($('<li>', {html: content}));
 		};
 		$('.product-list').append(list);
 	}
-	$('form').on('submit', function(event) {
+	$('#create').on('submit', function(event) {
 		event.preventDefault();
 		var form =  $(this);
 		var productData = form.serialize();
@@ -19,9 +19,30 @@
 			type: 'POST',
 			data: productData
 		})
-		.done(function(productName) {
+		.done(function(products) {
 			console.log("success");
-			appendToList([productName]);
+			location.reload();
+			form.trigger('reset')
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+	});
+	$('#update').on('submit', function(event) {
+		event.preventDefault();
+		var form =  $(this);
+		var productData = form.serialize();
+		$.ajax({
+			url: '/products/'+ $('#productIndexId').val(),
+			type: 'PUT',
+			data: productData
+		})
+		.done(function(products) {
+			console.log("success");
+			location.reload();
 			form.trigger('reset')
 		})
 		.fail(function() {
