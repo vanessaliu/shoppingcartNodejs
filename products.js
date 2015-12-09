@@ -118,12 +118,6 @@ var Prodcuts = function(app) {
       res.end();
   });
 
-  app.get('/carts', function (req, res) {
-      // res.json([]);
-      console.log(carts);
-      res.end();
-  });
-
   app.on("error", function(error){
     console.error(error.message);
   });
