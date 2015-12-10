@@ -5,38 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Shoppingcart</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   </head>
 
   <body>
-	<h1>Shopping</h1>
-  <form id="create" action="">
-    <h2>New product</h2>
-    <input type="text" name="id" placeholder="id"><br/>
-    <input type="text" name="name" placeholder="name"><br/>
-    <input type="text" name="priceIncVat" placeholder="priceIncVat"><br/>
-    <input type="text" name="vatPercentage" placeholder="vatPercentage"><br/>
-    <input type="text" name="vatAmount" placeholder="vatAmount"><br/>
-    <input type="number" min="1" name="quantity" placeholder="quantity"><br/>
-    <input type="text" min="1" name="priceIncVatAmount" placeholder="priceIncVatAmount"><br/>
-    <input type="submit" value="add a new product">
-  </form>
-  <hr>
+  <h1>Shopping</h1>
+  <div class="col-md-6 col-xs-12">
+    <h1>Products</h1>
+    <h2>Product list</h2>
+    <ul class="product-list"></ul>
+
+    <form id="create" action="">
+      <h2>Add new product</h2>
+      <input type="text" name="id" placeholder="id"><br/>
+      <input type="text" name="name" placeholder="name"><br/>
+      <input type="text" name="priceIncVat" placeholder="priceIncVat"><br/>
+      <input type="text" name="vatPercentage" placeholder="vatPercentage"><br/>
+      <input type="text" name="vatAmount" placeholder="vatAmount"><br/>
+      <input type="number" min="1" name="quantity" placeholder="quantity"><br/>
+      <input type="text" min="1" name="priceIncVatAmount" placeholder="priceIncVatAmount"><br/>
+      <input type="submit" value="add a new product">
+    </form>
+
+    
+      <h2>Update an existing product</h2>
+      <input id="productIndexId" type="number" min="0" name="productIndexId" placeholder="productIndexId"><br/>
+    <form id="update" action="">
+      <input type="text" name="id" placeholder="id"><br/>
+      <input type="text" name="name" placeholder="name"><br/>
+      <input type="text" name="priceIncVat" placeholder="priceIncVat"><br/>
+      <input type="text" name="vatPercentage" placeholder="vatPercentage"><br/>
+      <input type="text" name="vatAmount" placeholder="vatAmount"><br/>
+      <input type="number" min="1" name="quantity" placeholder="quantity"><br/>
+      <input type="text" min="1" name="priceIncVatAmount" placeholder="priceIncVatAmount"><br/>
+      <input type="submit" value="update the product">
+    </form>
+  </div>
+	
+  <div class="col-md-6 col-xs-12">
+    <h1>Carts</h1>
+    <h2>Cart list</h2>
+    <ul class="cart-list"></ul>
+  </div>
   
-    <h2>Update an existing product</h2>
-    <input id="productIndexId" type="number" min="0" name="productIndexId" placeholder="productIndexId"><br/>
-  <form id="update" action="">
-    <input type="text" name="id" placeholder="id"><br/>
-    <input type="text" name="name" placeholder="name"><br/>
-    <input type="text" name="priceIncVat" placeholder="priceIncVat"><br/>
-    <input type="text" name="vatPercentage" placeholder="vatPercentage"><br/>
-    <input type="text" name="vatAmount" placeholder="vatAmount"><br/>
-    <input type="number" min="1" name="quantity" placeholder="quantity"><br/>
-    <input type="text" min="1" name="priceIncVatAmount" placeholder="priceIncVatAmount"><br/>
-    <input type="submit" value="update the product">
-  </form>
-  <hr>
-  <h2>Product list</h2>
-	<ul class="product-list"></ul>
+
+  
 
 
 	<script src="jquery.js"></script>
