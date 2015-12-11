@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var Carts = function(app) {
   //******************   PRODUCTS    *********************//
   var carts = [];
