@@ -1,6 +1,7 @@
 var Carts = function(app) {
   //******************   PRODUCTS    *********************//
-  var carts = [
+  var carts = [];
+  /*
     {
       "id":"2712e86a-d519-48af-b50b-194e9a2102de",
       "rows":[
@@ -70,16 +71,19 @@ var Carts = function(app) {
       "totalVatAmount":5.5
     }
   ];
+*/
 
   // listning av alla kundvagnar (GET -> /carts)
   app.get('/carts', function (req, res) {
       if(req.query.limit >= 0) {
         res.json(carts.slice(0, req.query.limit));
       }else {
+        console.log("This is where I am right now");
         // res.json(carts); //write out the value
         res.json(Object.keys(carts)); //write the key
         console.log(Object.keys(carts));
-      } 
+        console.log("After  logging");
+      }
       console.log(carts);
       res.end();
   });
@@ -121,6 +125,8 @@ var Carts = function(app) {
     res.end();
   });
 
+
+
   //ta bort kundvagn (DELETE -> /carts/some-url-friendly-identifier)
   app.delete('/carts/:id', function(req, res) {
       var theId = req.params.id;
@@ -133,6 +139,7 @@ var Carts = function(app) {
      console.log(carts);
   });
 
+
   //uppdatera kundvagn dvs lägga till produktrader.
   app.put('/carts/:id', function(req, res) {
       var theId = req.params.id;
@@ -141,7 +148,7 @@ var Carts = function(app) {
       if(theId < carts.length){
         var theProductsInTheCart = carts[theId].rows;
         theProductsInTheCart.push(theNewProduct);
-      } 
+      }
       else{
           console.log(404);
           // res.status(404).send({"message":"Can not find the cart"});
@@ -150,5 +157,5 @@ var Carts = function(app) {
       res.end();
   });
 
-} 
+}
 module.exports.initCarts = Carts;

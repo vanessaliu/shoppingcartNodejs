@@ -1,6 +1,8 @@
+var _ = require('lodash');
 var Prodcuts = function(app) {
   //******************   PRODUCTS    *********************//
-  var products = [
+  var products = [];
+  /*
       {
         "id":"43ec13fa-af95-4d1e-974c-d439b9946eea",
         "name":"Milk",
@@ -29,20 +31,19 @@ var Prodcuts = function(app) {
         "priceIncVatAmount":2.0
       }
   ];
+  */
 
   //listning av alla produkter
   app.get('/products', function(req, res) {
-    console.log(products);
+    console.log("Products: " + products);
     if(req.query.limit >= 0) {
       res.json(products.slice(0, req.query.limit));
     }else {
-      // res.json(products); //write out the value
-      res.json(Object.keys(products)); //write the key
-      console.log(Object.keys(products));
-    } 
+       res.json(products); //write out the value
+    }
   });
 
-  //hämta en produkt 
+  //hämta en produkt
   app.get('/products/:id', function(req, res) {
       var theId = req.params.id;
       var id = products[theId].id;
@@ -79,21 +80,25 @@ var Prodcuts = function(app) {
       };
     }else {
       products.push(product);
-      res.status(201).json(products);
+      res.status(201).location("http://localhost:8080/products/" + product.id).json(products);
     }
     console.log("Saving product: " + product.name);
     res.end();
   });
 
+
   //ta bort en produkt
   app.delete('/products/:id', function(req, res) {
       var theId = req.params.id;
-      if (!products[theId]) {
-        response.sendStatus(404);
-      }else{
-        delete products[theId];
-        res.sendStatus(200);
-      }
+      console.log("DELETING: " + theId);
+      for (var i = 0; i < products.length; i++) {
+          if (products[i].id === theId) {
+            console.log("the products id equals");
+            products.splice(i,1);
+            res.sendStatus(200);
+          }
+      };
+
      console.log(products);
   });
 
@@ -122,5 +127,5 @@ var Prodcuts = function(app) {
     console.error(error.message);
   });
 
-} 
+}
 module.exports.initProducts = Prodcuts;

@@ -1,5 +1,6 @@
 (function(){
 	$.get('/products', appendToList);
+    $.get('/carts', appendToCartList);
 	function appendToList (products) {
 		var list = [];
 		var content, product;
@@ -10,6 +11,16 @@
 		};
 		$('.product-list').append(list);
 	}
+    function appendToCartList (carts) {
+        var list = [];
+        var content, cart;
+        for (var i in carts) {
+            cart =  carts[i];
+            content = '<a href="/carts/'+ cart +'">cart'+cart+ '</a>' + '<a href="#" data-cart="' + cart + '"><img src="editing-delete-icon.png" style="width:15px"></a>';
+            list.push($('<li>', {html: content}));
+        };
+        $('.cart-list').append(list);
+    }
 	$('#create').on('submit', function(event) {
 		event.preventDefault();
 		var form =  $(this);
